@@ -162,3 +162,134 @@
   </div>
 </body>
 </html>
+<style>
+    /* El contenedor de los controles: Se pega al fondo de la pantalla */
+    #mobile-controls {
+      display: none; /* Oculto en PC */
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      z-index: 9999;
+      pointer-events: none; /* Deja ver el juego a través de los espacios vacíos */
+      font-family: sans-serif;
+    }
+
+    /* Solo mostrar en pantallas táctiles o pequeñas (menores a 1024px) */
+    @media (max-width: 1024px) {
+      #mobile-controls { display: flex; }
+      /* Ocultar la ayuda de teclas en celular para ganar espacio */
+      #help { display: none !important; } 
+    }
+
+    .control-group {
+      flex: 1;
+      position: relative;
+      pointer-events: auto; /* Habilita el toque en los botones */
+    }
+
+    /* Diseño de los botones redondos y transparentes */
+    .btn-touch {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      color: white;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none; /* Vital para que no haga zoom al tocar */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    
+    /* Efecto al presionar */
+    .btn-touch:active { 
+      background: rgba(255, 255, 255, 0.6); 
+      transform: scale(0.95);
+    }
+
+    /* === POSICIONES === */
+    /* Cruceta Izquierda */
+    #btn-up    { top: 0; left: 80px; }
+    #btn-down  { bottom: 20px; left: 80px; }
+    #btn-left  { top: 60px; left: 10px; }
+    #btn-right { top: 60px; left: 150px; }
+
+    /* Botones Derecha */
+    #btn-fire  { 
+      bottom: 40px; right: 20px; 
+      background: rgba(255, 50, 50, 0.4); 
+      width: 80px; height: 80px; font-size: 14px; 
+    }
+    #btn-start { 
+      top: 10px; right: 20px; 
+      background: rgba(50, 255, 50, 0.4); 
+      width: 100px; height: 40px; 
+      border-radius: 10px; font-size: 12px; font-weight: bold;
+    }
+    
+    /* Etiquetas dentro de los botones */
+    .btn-label { pointer-events: none; }
+  </style>
+
+  <div id="mobile-controls">
+    <div class="control-group">
+      <div id="btn-up" class="btn-touch">⬆️</div>
+      <div id="btn-left" class="btn-touch">⬅️</div>
+      <div id="btn-right" class="btn-touch">➡️</div>
+      <div id="btn-down" class="btn-touch">⬇️</div>
+    </div>
+    
+    <div class="control-group">
+      <div id="btn-start" class="btn-touch">START</div> <div id="btn-fire" class="btn-touch">🔥</div>     </div>
+  </div>
+
+  <script>
+    // LÓGICA: Convierte toques en pantalla a eventos de teclado
+    function simulateKey(keyCode, type) {
+      // Crea un evento de teclado falso
+      var evt = document.createEvent("Events");
+      evt.initEvent(type, true, true);
+      evt.keyCode = keyCode;
+      evt.which = keyCode; // Importante para navegadores viejos/celulares
+      
+      // Despacha el evento al documento y a la ventana
+      document.dispatchEvent(evt);
+      window.dispatchEvent(evt);
+    }
+
+    // Mapa de botones y qué tecla representan
+    var buttons = [
+      { id: 'btn-up', code: 38 },    // Flecha Arriba
+      { id: 'btn-down', code: 40 },  // Flecha Abajo
+      { id: 'btn-left', code: 37 },  // Flecha Izquierda
+      { id: 'btn-right', code: 39 }, // Flecha Derecha
+      { id: 'btn-fire', code: 32 },  // Espacio (Disparar)
+      { id: 'btn-start', code: 13 }  // Enter (Iniciar juego)
+    ];
+
+    buttons.forEach(function(btn) {
+      var element = document.getElementById(btn.id);
+      
+      // Cuando tocas la pantalla (Touch Start) -> Simula tecla presionada (keydown)
+      element.addEventListener('touchstart', function(e) {
+        e.preventDefault(); // Evita scroll o zoom
+        simulateKey(btn.code, 'keydown');
+        element.style.backgroundColor = "rgba(255, 255, 255, 0.8)"; // Feedback visual
+      }, false);
+
+      // Cuando sueltas la pantalla (Touch End) -> Simula tecla soltada (keyup)
+      element.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        simulateKey(btn.code, 'keyup');
+        element.style.backgroundColor = ""; // Regresa al color original
+      }, false);
+    });
+  </script>
+  </body>

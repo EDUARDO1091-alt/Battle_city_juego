@@ -1,0 +1,6 @@
+Host= gateway01.us-east-1.prod.aws.tidbcloud.com
+Port=
+Username= 4000
+Password= 48qvJDg4qmVN7CC.root
+Database= icb4llJsOdFPYyv5
+Ca= <CA_PATH>
