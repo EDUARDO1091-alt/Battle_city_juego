@@ -166,10 +166,10 @@
     #mobile-controls {
       display: none; 
       position: fixed;
-      bottom: 40px; /* Separado del borde inferior */
+      bottom: 40px; 
       left: 0;
       width: 100%;
-      height: 300px; /* Altura suficiente para botones grandes */
+      height: 250px; /* Altura ajustada */
       z-index: 9999;
       pointer-events: none;
       font-family: sans-serif;
@@ -186,29 +186,29 @@
       pointer-events: auto;
     }
 
-    /* ESTILO DE LOS BOTONES (GIGANTES) */
+    /* ESTILO DE LOS BOTONES (TAMAÑO 80px) */
     .btn-touch {
       background: rgba(255, 255, 255, 0.2);
-      border: 3px solid rgba(255, 255, 255, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.6);
       border-radius: 50%;
       position: absolute;
       
-      /* TAMAÑO NUEVO: MUCHO MÁS GRANDE */
-      width: 95px; 
-      height: 95px; 
+      /* TAMAÑO NUEVO: 80px */
+      width: 80px; 
+      height: 80px; 
       
       display: flex;
       justify-content: center;
       align-items: center;
       
-      /* ÍCONOS MÁS GRANDES */
-      font-size: 50px; 
+      /* ÍCONOS CLAROS */
+      font-size: 35px; 
       
       color: white;
       user-select: none;
       -webkit-user-select: none;
       touch-action: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
     }
     
     .btn-touch:active { 
@@ -216,27 +216,26 @@
       transform: scale(0.95);
     }
 
-    /* === POSICIONES AJUSTADAS PARA NO CHOCAR === */
+    /* === POSICIONES === */
     
-    /* CRUCETA IZQUIERDA */
-    #btn-up    { top: 0;        left: 110px; }
-    #btn-down  { bottom: 20px;  left: 110px; }
-    #btn-left  { top: 100px;    left: 10px; }
-    #btn-right { top: 100px;    left: 210px; }
+    /* CRUCETA IZQUIERDA (Centrada en 90px) */
+    #btn-up    { top: 0;        left: 90px; }
+    #btn-down  { bottom: 20px;  left: 90px; }
+    #btn-left  { top: 85px;     left: 5px; }
+    #btn-right { top: 85px;     left: 175px; }
 
     /* BOTONES DERECHA */
     #btn-fire  { 
-      bottom: 60px; right: 20px; 
+      bottom: 50px; right: 20px; 
       background: rgba(255, 50, 50, 0.4); 
-      /* EL BOTÓN DE DISPARO AÚN MÁS GRANDE */
-      width: 110px; height: 110px; font-size: 60px; 
+      width: 90px; height: 90px; font-size: 40px; /* Disparo un poco más grande */
     }
     
     #btn-start { 
-      top: 0px; right: 20px; 
+      top: 10px; right: 20px; 
       background: rgba(50, 255, 50, 0.4); 
-      width: 120px; height: 50px; 
-      border-radius: 15px; font-size: 20px; font-weight: bold;
+      width: 110px; height: 45px; 
+      border-radius: 12px; font-size: 16px; font-weight: bold;
     }
 </style>
 
