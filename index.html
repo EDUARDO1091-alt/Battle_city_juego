@@ -108,24 +108,19 @@
   <script type="text/javascript">
     $(function () {
       var FPS = 50;
-      
       var CANVAS_ID = 'canvas';
       var ctx = createCanvasContext();
       ctx.font = "16px prstart"
-      
       var eventManager = new EventManager();
       var keyboard = new Keyboard(eventManager);
       var sceneManager = new SceneManager(eventManager);
       sceneManager.toLoadingScene();
-      
       setInterval(gameLoop, 1000 / FPS);
-      
       function gameLoop() {
         keyboard.fireEvents();
         sceneManager.update();
         sceneManager.draw(ctx);
       }
-      
       function createCanvasContext() {
         $('<canvas id="' + CANVAS_ID + '" width="' + Globals.CANVAS_WIDTH + '" height="' + Globals.CANVAS_HEIGHT + '"></canvas>').prependTo('#main');
         var canvas = document.getElementById(CANVAS_ID);
@@ -133,6 +128,21 @@
       };
     });
   </script>
+
+  <style>
+    /* Hace que el juego se encoja si la pantalla es chica */
+    canvas {
+      max-width: 100% !important;
+      height: auto !important;
+      display: block;
+      margin: 0 auto; /* Centrarlo */
+    }
+    #main {
+      width: 100%;
+      overflow: hidden; /* Evita que se salga */
+      text-align: center;
+    }
+  </style>
 
 </head>
 
@@ -166,10 +176,10 @@
     #mobile-controls {
       display: none; 
       position: fixed;
-      bottom: 40px; 
+      bottom: 20px; /* Un poco más abajo */
       left: 0;
       width: 100%;
-      height: 250px; /* Altura ajustada */
+      height: 220px; 
       z-index: 9999;
       pointer-events: none;
       font-family: sans-serif;
@@ -186,29 +196,28 @@
       pointer-events: auto;
     }
 
-    /* ESTILO DE LOS BOTONES (TAMAÑO 80px) */
+    /* ESTILO DE LOS BOTONES (TAMAÑO REDUCIDO A 65px) */
     .btn-touch {
       background: rgba(255, 255, 255, 0.2);
       border: 2px solid rgba(255, 255, 255, 0.6);
       border-radius: 50%;
       position: absolute;
       
-      /* TAMAÑO NUEVO: 80px */
-      width: 80px; 
-      height: 80px; 
+      /* TAMAÑO NUEVO: 65px (20% menos que los 80px anteriores) */
+      width: 65px; 
+      height: 65px; 
       
       display: flex;
       justify-content: center;
       align-items: center;
       
-      /* ÍCONOS CLAROS */
-      font-size: 35px; 
+      font-size: 28px; 
       
       color: white;
       user-select: none;
       -webkit-user-select: none;
       touch-action: none;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.4);
     }
     
     .btn-touch:active { 
@@ -218,24 +227,24 @@
 
     /* === POSICIONES === */
     
-    /* CRUCETA IZQUIERDA (Centrada en 90px) */
-    #btn-up    { top: 0;        left: 90px; }
-    #btn-down  { bottom: 20px;  left: 90px; }
-    #btn-left  { top: 85px;     left: 5px; }
-    #btn-right { top: 85px;     left: 175px; }
+    /* CRUCETA IZQUIERDA */
+    #btn-up    { top: 10px;     left: 80px; }
+    #btn-down  { bottom: 25px;  left: 80px; }
+    #btn-left  { top: 80px;     left: 10px; }
+    #btn-right { top: 80px;     left: 150px; }
 
     /* BOTONES DERECHA */
     #btn-fire  { 
-      bottom: 50px; right: 20px; 
+      bottom: 40px; right: 20px; 
       background: rgba(255, 50, 50, 0.4); 
-      width: 90px; height: 90px; font-size: 40px; /* Disparo un poco más grande */
+      width: 75px; height: 75px; font-size: 32px; 
     }
     
     #btn-start { 
-      top: 10px; right: 20px; 
+      top: 20px; right: 20px; 
       background: rgba(50, 255, 50, 0.4); 
-      width: 110px; height: 45px; 
-      border-radius: 12px; font-size: 16px; font-weight: bold;
+      width: 90px; height: 40px; 
+      border-radius: 10px; font-size: 14px; font-weight: bold;
     }
 </style>
 
